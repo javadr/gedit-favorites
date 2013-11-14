@@ -58,6 +58,8 @@ Screenshots
 Changes
 -------
 
+Unicode url are showed in ascii form. This problem solved by using unquote function from urllib module. 
+Therefore, in any languages the favorites will be displayed correctly. 
 
 BSD License
 -----------
