@@ -1,4 +1,5 @@
 import os
+import urllib
 import logging
 from xml.etree import ElementTree as ET
 from gi.repository import GObject, Gdk, Gtk, Gedit, GdkPixbuf, Gio
@@ -191,7 +192,7 @@ class FavoritesPlugin(GObject.Object, Gedit.WindowActivatable):
             for subelement in element:
                 self._load_element(new_iter, subelement)
         elif element.tag == "uri":
-            self._add_favorites_uri(parent_iter, element.text)
+            self._add_favorites_uri(parent_iter, urllib.unquote(element.text))
         
     def load_from_xml(self):
         """ Load the favorites into the treeview from an XML file. """
@@ -209,7 +210,7 @@ class FavoritesPlugin(GObject.Object, Gedit.WindowActivatable):
             location = document.get_location()
             if location:
                 uri = location.get_uri()
-                self._add_favorites_uri(None, uri)
+                self._add_favorites_uri(None, urllib.unquote(uri))
     
     def on_button_press_event(self, treeview, event):
         """ Show popup menu. """
